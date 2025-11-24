@@ -1,4 +1,4 @@
-# GitBook Scraper
+# gitbook_md_scraper
 
 A simple tool to download GitBook documentation as Markdown files. It preserves the directory structure, creating a tree of markdown files perfect for feeding into AI/LLM agents for context.
 
