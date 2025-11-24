@@ -1,0 +1,20 @@
+[project]
+name = "gitbook-md-scraper"
+version = "0.1.0"
+description = "Download GitBook docs as Markdown."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.5",
+    "beautifulsoup4>=4.14.2"
+]
+
+[project.scripts]
+gitbook-md-scraper = "gitbook_md_scraper.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["gitbook_md_scraper"]

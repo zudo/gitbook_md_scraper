@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+.mypy_cache/
+
+# Distribution / Packaging
+dist/
+build/
+*.egg-info/
+
+# Scraper Output (Optional: uncomment if you don't want to commit scraped docs)
+docs/
+
+# Mac
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
