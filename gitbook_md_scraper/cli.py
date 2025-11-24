@@ -13,6 +13,33 @@ def normalize_url(url):
     url = url.split('#')[0]
     return url.rstrip('/')
 
+def sanitize_path_segment(segment):
+    """Keep directory names filesystem friendly."""
+    segment = unquote(segment.strip())
+    sanitized = ''.join(ch if ch.isalnum() or ch in "-._" else '_' for ch in segment)
+    sanitized = sanitized.replace(os.sep, '_')
+    return sanitized or "root"
+
+
+def build_output_directory(base_output_dir, start_url):
+    """Nest downloads inside a folder derived from the start URL."""
+    parsed = urlparse(start_url)
+    segments = []
+
+    if parsed.netloc:
+        segments.append(parsed.netloc)
+
+    path_parts = [part for part in parsed.path.strip('/').split('/') if part]
+    if path_parts:
+        segments.extend(path_parts)
+
+    if not segments:
+        segments.append("root")
+
+    safe_segments = [sanitize_path_segment(part) for part in segments]
+    return os.path.join(base_output_dir, *safe_segments)
+
+
 def get_relative_path(url, start_url):
     """Extract the relative path from the URL to use as file path."""
     # Parse both URLs
@@ -64,6 +91,7 @@ def save_markdown(url, output_dir, start_url):
 
 def crawl(start_url, output_dir):
     start_url = normalize_url(start_url)
+    output_dir = build_output_directory(output_dir, start_url)
     queue = deque([start_url])
     visited = set([start_url])
     
